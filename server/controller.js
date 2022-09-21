@@ -1,17 +1,87 @@
-const homes = require('./database');
+const Homes = require('./model/Homes');
+const database = require('./database');
 
 module.exports = {
-  sendHomes: (req, res) => {
+  getHomes: (req, res) => {
     console.log('Hit');
-    homes
-      .query('SELECT * FROM public.homes ORDER BY home_id ASC')
+    database
+      .query('SELECT * FROM public.homes ORDER BY id ASC;')
       .then((dbRes) => {
         console.log(dbRes[0]);
         res.status(200).send(dbRes[0]);
       });
   },
 
+  getHomeById: (req, res) => {
+    const id = req.params.id;
+    if (Number(id)) {
+      return Homes.findByPk(id)
+        .then((dbRes) => {
+          res.status(200).send(dbRes);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send("There's a problem.", err);
+        });
+    }
+  },
   createHome: (req, res) => {
+    // const d = new Date();
+    // const createdAt = d.toISOString(d.getFullYear() + '-' + d.getDate());
+    // const updatedAt = d.toISOString(d.getFullYear() + '-' + d.getDate());
+
+    const {
+      home_address,
+      home_type,
+      home_price,
+      sale_type,
+      bedrooms,
+      bathrooms,
+      square_footage,
+      image,
+    } = req.body;
+
+    // database
+    //   .query(
+    //     `INSERT INTO public.homes (home_address, home_type, home_price, sale_type, bedrooms, bathrooms, square_footage, image, created_at, updated_at) VALUES ('${home_address}','${home_type}','${home_price}','${sale_type}','${bedrooms}','${bathrooms}','${square_footage}','${image}','${createdAt}', '${updatedAt}') RETURNING *`,
+    //     [
+    //       home_address,
+    //       home_type,
+    //       home_price,
+    //       sale_type,
+    //       bedrooms,
+    //       bathrooms,
+    //       square_footage,
+    //       image,
+    //     ],
+    //     (error, result) => {
+    //       if (error) {
+    //         throw error;
+    //       }
+    //     }
+    //   )
+    Homes.create({
+      home_address,
+      home_type,
+      home_price,
+      sale_type,
+      bedrooms,
+      bathrooms,
+      square_footage,
+      image,
+    })
+      .then((dbRes) => {
+        console.log(dbRes);
+        res.status(201).send(dbRes);
+      })
+      .catch((err) => console.log(err));
+
+    console.log('Created new home:' + req.body.data);
+  },
+
+  updateHome: (req, res) => {
+    const id = req.params.id;
+
     const {
       home_address,
       home_type,
@@ -22,18 +92,52 @@ module.exports = {
       square_footage,
     } = req.body;
 
-    let newHome = {
-      home_address,
-      home_type,
-      home_price,
-      sale_type,
-      bedrooms,
-      bathrooms,
-      square_footage,
-    };
+    // database
+    //   .query(
+    //     `UPDATE homes SET home_address = '${home_address}', home_type = '${home_type}', home_price = ${home_price}, sale_type = '${sale_type}', bedrooms = ${bedrooms},bathrooms = ${bathrooms}, square_footage = ${square_footage} WHERE id = ${id}`
+    //   )
+    console.log('id = ' + id + 'body, ', req.body);
+
+    Homes.update(
+      {
+        home_address,
+        home_type,
+        home_price,
+        sale_type,
+        bedrooms,
+        bathrooms,
+        square_footage,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    )
+      .then((dbRes) => {
+        res.sendStatus(200).send(dbRes[0]);
+      })
+      .catch((err) => console.log(err));
   },
 
-  updateHome: (req, res) => {},
+  deleteHome: (req, res) => {
+    const id = req.params.id;
 
-  deleteHome: (req, res) => {},
+    return Homes.destroy({
+      where: {
+        id: id,
+      },
+    })
+      .then((dbRes) => {
+        res.sendStatus(200).send(dbRes);
+      })
+      .catch((err) => console.log(err));
+
+    // database
+    //   .query(`DELETE FROM public.homes WHERE id = ${id} RETURNING *;`)
+    //   .then((dbRes) => {
+    //     res.status(200).send(dbRes[0]);
+    //   })
+    //   .catch((err) => console.log(err));
+  },
 };

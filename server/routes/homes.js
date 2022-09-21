@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
-const Home = require('../Home');
+const Home = require('../model/Homes');
 
 //Get homes
 router.get('/', (req, res) =>

@@ -10,7 +10,8 @@ app.use(cors());
 //end boilerplate for server
 
 const {
-  sendHomes,
+  getHomes,
+  getHomeById,
   createHome,
   updateHome,
   deleteHome,
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 //database import
 const db = require('./database');
 
-//set statioc folder
+//set static folder
 app.use(express.static(path.join(__dirname, 'src')));
 
 //test db
@@ -31,23 +32,27 @@ db.authenticate()
   .then(() => console.log('Database connected...'))
   .catch((err) => console.log('Error:' + err));
 
-app.get('/homes', sendHomes);
+app.get('/homes', getHomes);
+app.get('/homes/:id', getHomeById);
+app.post('/homes', createHome);
+app.put('/homes/:id', updateHome);
+app.delete('/homes/:id', deleteHome);
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'Hello' });
-});
+// app.get('/api', (req, res) => {
+//   res.json({ message: 'Hello' });
+// });
 
-//Homes Route
+// Homes Route
 app.use('/homes', require('./routes/homes'));
 
-//create home
-app.post('/homes', async (req, res) => {
-  try {
-    console.log(req.body);
-  } catch (err) {
-    console.log(err.message);
-  }
-});
+// //create home
+// app.post('/homes', async (req, res) => {
+//   try {
+//     console.log(req.body);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
 //port boilerplate
 const port = process.env.PORT || 5000;

@@ -1,11 +1,17 @@
-.addToggler{
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.addSubmit{
     width: 150px;
         height: 45px;
         margin: 10px;
         border: none;
-        background-color: cornflowerblue;
+        background-color: green;
         color: white;
         border-radius: 8px;
         font-size: 20px;
         cursor: pointer;
+
 }

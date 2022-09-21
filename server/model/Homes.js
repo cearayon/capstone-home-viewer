@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-const db = require('./database');
+const db = require('../database');
 
 const Homes = db.define('home', {
-  home_id: {
+  id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
@@ -42,10 +42,12 @@ const Homes = db.define('home', {
   createdAt: {
     type: Sequelize.DATE,
     allowNull: true,
+    field: 'created_at',
   },
   updatedAt: {
     type: Sequelize.DATE,
     allowNull: true,
+    field: 'updated_at',
   },
 });
 
