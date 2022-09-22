@@ -43,27 +43,25 @@ export default function ModalAdd({
 
   return (
     <>
-      {showModal ? (
-        <div className='modalBackground'>
-          <div className='modalContainer'>
-            <div className='titleCloseBtn'>
-              <button onClick={openModal}>X</button>
-            </div>
-            <div className='title'>
-              <h1>Tell us more about your home!</h1>
-            </div>
-            <div className='body'>
-              <AddForm createHome={createHome} submitRef={submitRef} />
-            </div>
-            <div className='footer'>
-              <button onClick={openModal} id='cancelBtn'>
-                Cancel
-              </button>
-              <button onClick={() => submitRef.current.click()}>Submit</button>
-            </div>
+      <div className='modalBackground'>
+        <div className='modalContainer'>
+          <div className='titleCloseBtn'>
+            <button onClick={openModal}>X</button>
+          </div>
+          <div className='title'>
+            <h1>Tell us more about your home!</h1>
+          </div>
+          <div className='body'>
+            <AddForm createHome={createHome} submitRef={submitRef} />
+          </div>
+          <div className='footer'>
+            <button onClick={openModal} id='cancelBtn'>
+              Cancel
+            </button>
+            <button onClick={() => submitRef.current.click()}>Submit</button>
           </div>
         </div>
-      ) : null}
+      </div>
     </>
   );
 }

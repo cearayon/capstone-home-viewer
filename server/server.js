@@ -15,6 +15,7 @@ const {
   createHome,
   updateHome,
   deleteHome,
+  auth
 } = require('./controller.js');
 
 //body parser middleware
@@ -37,6 +38,7 @@ app.get('/homes/:id', getHomeById);
 app.post('/homes', createHome);
 app.put('/homes/:id', updateHome);
 app.delete('/homes/:id', deleteHome);
+app.post('/user', auth)
 
 // app.get('/api', (req, res) => {
 //   res.json({ message: 'Hello' });

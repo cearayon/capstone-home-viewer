@@ -66,31 +66,29 @@ export default function ModalUpdate({
 
   return (
     <>
-      {showModal ? (
-        <div className='modalBackground'>
-          <div className='modalContainer'>
-            <div className='titleCloseBtn'>
-              <button onClick={openModal}>X</button>
-            </div>
-            <div className='title'>
-              <h1>What would you like to change about this home?</h1>
-            </div>
-            <div className='body'>
-              <UpdateForm
-                home={home}
-                updateHome={updateHome}
-                submitRef={submitRef}
-              />
-            </div>
-            <div className='footer'>
-              <button onClick={openModal} id='cancelBtn'>
-                Cancel
-              </button>
-              <button onClick={() => submitRef.current.click()}>Submit</button>
-            </div>
+      <div className='modalBackground'>
+        <div className='modalContainer'>
+          <div className='titleCloseBtn'>
+            <button onClick={openModal}>X</button>
+          </div>
+          <div className='title'>
+            <h1>What would you like to change about this home?</h1>
+          </div>
+          <div className='body'>
+            <UpdateForm
+              home={home}
+              updateHome={updateHome}
+              submitRef={submitRef}
+            />
+          </div>
+          <div className='footer'>
+            <button onClick={openModal} id='cancelBtn'>
+              Cancel
+            </button>
+            <button onClick={() => submitRef.current.click()}>Submit</button>
           </div>
         </div>
-      ) : null}
+      </div>
     </>
   );
 }

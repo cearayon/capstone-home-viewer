@@ -51,15 +51,17 @@ function App() {
             <Route path='/Contact' element={<Contact />} />
           </Routes> */}
         </div>
-        <button className='addToggler' onClick={openModal}>
+        <button className='addToggler' onClick={() => openModal()}>
           Add a Home!
         </button>
-        <ModalAdd
-          getHomes={getHomes}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          openModal={openModal}
-        />
+        {showModal ? (
+          <ModalAdd
+            getHomes={getHomes}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            openModal={openModal}
+          />
+        ) : null}
         <div>{mappedHomesList}</div>
         <Footer />
       </div>

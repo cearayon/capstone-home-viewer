@@ -1,5 +1,7 @@
 const Homes = require('./model/Homes');
+const Users = require('./model/Users');
 const database = require('./database');
+const bcrypt = require('bryptjs');
 
 module.exports = {
   getHomes: (req, res) => {
@@ -139,5 +141,29 @@ module.exports = {
     //     res.status(200).send(dbRes[0]);
     //   })
     //   .catch((err) => console.log(err));
+  },
+
+  auth: async (req, res) => {
+    const { email, password } = req.body;
+
+    const [[user]] = await Users.query(
+      `SELECT * FROM users WHERE username ='${email}';`
+    );
+
+    console.log(user);
+
+    if (user) {
+      console.log('its a login');
+    } else if (!user) {
+      console.log('its a register');
+
+      const salt = bcrypt.genSaltSync(5); //generates random characters, assign to var
+      const passHash = bcrypt.hashSync(password, salt); //takes salt and pass to hash
+      console.log(salt, passHash);
+
+      const [[newUser]] = await Users.query(
+        `INSERT INTO users (email, password) VALUES ('${email}', '${password}')`
+      );
+    }
   },
 };

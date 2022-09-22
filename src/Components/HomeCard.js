@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import './HomeCard.css';
-import Modal from './Modal';
 import ModalUpdate from './ModalUpdate';
+import ModalDelete from './ModalDelete';
 
 export default function HomeCard(props) {
   const [showModal, setShowModal] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
+
   function openModal() {
     setShowModal(!showModal);
+  }
+  function openModalDelete() {
+    setShowModalDelete(!showModalDelete);
   }
   // destructure here
   const { deleteHome, getHomes } = props;
@@ -28,16 +33,28 @@ export default function HomeCard(props) {
     <div className='card-container'>
       <span>
         <img className='home-image' src={image} alt='' />
+        <button onClick={openModalDelete}>DELETE v2</button>
+        {showModalDelete ? (
+          <ModalDelete
+            home={props.home}
+            getHomes={getHomes}
+            showModal={showModal}
+            setShowModalDelete={setShowModalDelete}
+            openModalDelete={openModalDelete}
+            deleteHome={deleteHome}
+          />
+        ) : null}
         <button onClick={() => deleteHome(id)}> DELETE </button>
         <button onClick={openModal}>UPDATE</button>
-
-        <ModalUpdate
-          home={props.home}
-          getHomes={getHomes}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          openModal={openModal}
-        />
+        {showModal ? (
+          <ModalUpdate
+            home={props.home}
+            getHomes={getHomes}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            openModal={openModal}
+          />
+        ) : null}
       </span>
       <h2>${home_price}</h2>
       <span>

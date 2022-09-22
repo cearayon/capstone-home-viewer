@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 export default function UpdateForm(props) {
   const { submitRef, updateHome, home } = props;
 
-  const [price, setPrice] = useState(0);
-  const [address, setAddress] = useState('');
-  const [homeType, setHomeType] = useState('');
-  const [saleType, setSaleType] = useState('');
-  const [bedrooms, setBedrooms] = useState(0);
-  const [bathrooms, setBathrooms] = useState(0);
-  const [squareFootage, setSquareFootage] = useState(0);
-  const [image, setImage] = useState('');
+  const [price, setPrice] = useState(home.home_price);
+  const [address, setAddress] = useState(home.home_address);
+  const [homeType, setHomeType] = useState(home.home_type);
+  const [saleType, setSaleType] = useState(home.sale_type);
+  const [bedrooms, setBedrooms] = useState(home.bedrooms);
+  const [bathrooms, setBathrooms] = useState(home.bathrooms);
+  const [squareFootage, setSquareFootage] = useState(home.square_footage);
+  const [image, setImage] = useState(home.image);
 
   return (
     <>
@@ -32,8 +32,9 @@ export default function UpdateForm(props) {
           alert('Home updated!');
         }}
       >
-        <label htmlFor='addUser'></label>
+        <label htmlFor='updateHome'></label>
         <input
+          value={price}
           onChange={(e) => setPrice(e.target.value)}
           autoFocus
           id='priceInput'
@@ -42,6 +43,7 @@ export default function UpdateForm(props) {
           required
         />
         <input
+          value={address}
           onChange={(e) => setAddress(e.target.value)}
           autoFocus
           id='addressInput'
@@ -50,6 +52,7 @@ export default function UpdateForm(props) {
           required
         />
         <input
+          value={homeType}
           onChange={(e) => setHomeType(e.target.value)}
           autoFocus
           id='typeInput'
@@ -58,6 +61,7 @@ export default function UpdateForm(props) {
           required
         />
         <input
+          value={saleType}
           onChange={(e) => setSaleType(e.target.value)}
           autoFocus
           id='saleInput'
@@ -66,6 +70,7 @@ export default function UpdateForm(props) {
           required
         />
         <input
+          value={bedrooms}
           onChange={(e) => setBedrooms(e.target.value)}
           autoFocus
           id='bedroomsInput'
@@ -74,6 +79,7 @@ export default function UpdateForm(props) {
           required
         />
         <input
+          value={bathrooms}
           onChange={(e) => setBathrooms(e.target.value)}
           autoFocus
           id='bathroomsInput'
@@ -82,6 +88,7 @@ export default function UpdateForm(props) {
           required
         />
         <input
+          value={squareFootage}
           onChange={(e) => setSquareFootage(e.target.value)}
           autoFocus
           id='priceInput'
@@ -89,7 +96,9 @@ export default function UpdateForm(props) {
           placeholder='Square Footage'
           required
         />
+        Image:
         <input
+          value={image}
           onChange={(e) => setImage(e.target.value)}
           autoFocus
           id='imageInput'
