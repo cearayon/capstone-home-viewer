@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-export default function AddForm(props) {
-  const { getHomes } = props;
+export default function UpdateForm(props) {
+  const { submitRef, updateHome, home } = props;
 
   const [price, setPrice] = useState(0);
   const [address, setAddress] = useState('');
@@ -13,33 +12,6 @@ export default function AddForm(props) {
   const [squareFootage, setSquareFootage] = useState(0);
   const [image, setImage] = useState('');
 
-  function updateHome(id) {
-    // let updateObject = {
-    //   home_address: address,
-    //   home_price: price,
-    //   home_type: homeType,
-    //   sale_type: saleType,
-    //   bedrooms,
-    //   bathrooms,
-    //   square_footage: squareFootage,
-    //   image,
-    // };
-
-    axios
-      .put(`/homes/${props.home.id}`, {
-        home_address: address,
-        home_price: price,
-        home_type: homeType,
-        sale_type: saleType,
-        bedrooms,
-        bathrooms,
-        square_footage: squareFootage,
-        image,
-      })
-      .then(getHomes())
-      .catch((err) => console.error(err));
-  }
-
   return (
     <>
       <form
@@ -47,7 +19,16 @@ export default function AddForm(props) {
         class='addForm'
         onSubmit={(e) => {
           e.preventDefault();
-          updateHome();
+          updateHome({
+            address,
+            price,
+            homeType,
+            saleType,
+            bedrooms,
+            bathrooms,
+            squareFootage,
+            image,
+          });
           alert('Home updated!');
         }}
       >
@@ -116,7 +97,7 @@ export default function AddForm(props) {
           placeholder='Image URL'
           required
         />
-        <button>Submit</button>
+        <button ref={submitRef} type='submit' style={{ display: 'none' }} />
       </form>
     </>
   );

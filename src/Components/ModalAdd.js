@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import './ModalAdd.css';
 import AddForm from './AddForm';
 import axios from 'axios';
@@ -39,6 +39,8 @@ export default function ModalAdd({
       .catch((err) => console.error(err));
   }
 
+  const submitRef = useRef();
+
   return (
     <>
       {showModal ? (
@@ -51,12 +53,13 @@ export default function ModalAdd({
               <h1>Tell us more about your home!</h1>
             </div>
             <div className='body'>
-              <AddForm createHome={createHome} />
+              <AddForm createHome={createHome} submitRef={submitRef} />
             </div>
             <div className='footer'>
               <button onClick={openModal} id='cancelBtn'>
                 Cancel
               </button>
+              <button onClick={() => submitRef.current.click()}>Submit</button>
             </div>
           </div>
         </div>

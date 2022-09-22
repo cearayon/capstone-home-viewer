@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './HomeCard.css';
 import Modal from './Modal';
-import EditForm from './EditForm';
+import ModalUpdate from './ModalUpdate';
 
 export default function HomeCard(props) {
   const [showModal, setShowModal] = useState(false);
@@ -9,7 +9,7 @@ export default function HomeCard(props) {
     setShowModal(!showModal);
   }
   // destructure here
-  const { deleteHome, updateHome, getHomes } = props;
+  const { deleteHome, getHomes } = props;
   const {
     id,
     home_address,
@@ -29,8 +29,11 @@ export default function HomeCard(props) {
       <span>
         <img className='home-image' src={image} alt='' />
         <button onClick={() => deleteHome(id)}> DELETE </button>
-        <button onClick={openModal}>I'm a modal</button>
-        <Modal
+        <button onClick={openModal}>UPDATE</button>
+
+        <ModalUpdate
+          home={props.home}
+          getHomes={getHomes}
           showModal={showModal}
           setShowModal={setShowModal}
           openModal={openModal}
@@ -44,7 +47,6 @@ export default function HomeCard(props) {
       <p>{home_address}</p>
       <p>Posted at: {created_at}</p>
       <p>Last updated: {updated_at}</p>
-      <EditForm home={props.home} getHomes={getHomes} />
     </div>
   );
 }

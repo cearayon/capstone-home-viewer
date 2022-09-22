@@ -1,7 +1,6 @@
 import React from 'react';
 import './Modal.css';
 import AddForm from './AddForm';
-import EditForm from './EditForm';
 
 export default function Modal({
   showModal,

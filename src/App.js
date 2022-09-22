@@ -34,23 +34,9 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  function updateHome(id) {
-    let updateObject = {};
-
-    axios
-      .put(`/homes/${id}`, updateObject)
-      .then(getHomes)
-      .catch((err) => console.error(err));
-  }
-
   let mappedHomesList = homesList
     ? homesList.map((home) => (
-        <HomeCard
-          home={home}
-          deleteHome={deleteHome}
-          updateHome={updateHome}
-          getHomes={getHomes}
-        />
+        <HomeCard home={home} deleteHome={deleteHome} getHomes={getHomes} />
       ))
     : 'No homes currently listed. Please check back later!'; //turnary condition need so map doesn't trigger on first render.
 

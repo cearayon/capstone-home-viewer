@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './ModalAdd.css';
-import EditForm from './EditForm';
+import UpdateForm from './UpdateForm';
 import axios from 'axios';
 
-export default function ModalAdd({
+export default function ModalUpdate({
   showModal,
   setShowModal,
   openModal,
   getHomes,
+  home,
 }) {
-  function createHome(obj) {
+  function updateHome(obj) {
     const {
       address,
       price,
@@ -20,8 +21,11 @@ export default function ModalAdd({
       squareFootage,
       image,
     } = obj;
+
+    console.log(home);
+
     axios
-      .post('/homes', {
+      .put(`/homes/${home.id}`, {
         home_address: address,
         home_price: price,
         home_type: homeType,
@@ -39,6 +43,27 @@ export default function ModalAdd({
       .catch((err) => console.error(err));
   }
 
+  //   axios
+  //     .post('/homes', {
+  //       home_address: address,
+  //       home_price: price,
+  //       home_type: homeType,
+  //       sale_type: saleType,
+  //       bedrooms,
+  //       bathrooms,
+  //       square_footage: squareFootage,
+  //       image,
+  //     })
+  //     .then(() => {
+  //       getHomes();
+
+  //       openModal();
+  //     })
+  //     .catch((err) => console.error(err));
+  // }
+
+  const submitRef = useRef();
+
   return (
     <>
       {showModal ? (
@@ -48,15 +73,20 @@ export default function ModalAdd({
               <button onClick={openModal}>X</button>
             </div>
             <div className='title'>
-              <h1>Tell us more about your home!</h1>
+              <h1>What would you like to change about this home?</h1>
             </div>
             <div className='body'>
-              <AddForm createHome={createHome} />
+              <UpdateForm
+                home={home}
+                updateHome={updateHome}
+                submitRef={submitRef}
+              />
             </div>
             <div className='footer'>
               <button onClick={openModal} id='cancelBtn'>
                 Cancel
               </button>
+              <button onClick={() => submitRef.current.click()}>Submit</button>
             </div>
           </div>
         </div>

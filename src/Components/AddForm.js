@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './AddForm.css';
 import axios from 'axios';
 export default function AddForm(props) {
-  const { createHome } = props;
+  const { createHome, submitRef } = props;
 
   const [price, setPrice] = useState(0);
   const [address, setAddress] = useState('');
@@ -32,6 +32,7 @@ export default function AddForm(props) {
   return (
     <>
       <form
+        id='addForm'
         className='form-container'
         class='addForm'
         onSubmit={(e) => {
@@ -115,7 +116,7 @@ export default function AddForm(props) {
           required
         />
         <br />
-        <button className='addSubmit'>Add Home</button>
+        <button ref={submitRef} type='submit' style={{ display: 'none' }} />
       </form>
     </>
   );
