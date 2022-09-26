@@ -50,8 +50,9 @@ export default function AddForm(props) {
           alert('Home added!');
         }}
       >
-        <label htmlFor='addUser'></label>
+        <label htmlFor='price'></label>
         <input
+          name='price'
           onChange={(e) => setPrice(e.target.value)}
           autoFocus
           id='priceInput'
@@ -59,9 +60,9 @@ export default function AddForm(props) {
           placeholder='Price'
           required
         />
+        <label htmlFor='addUser'></label>
         <input
           onChange={(e) => setAddress(e.target.value)}
-          autoFocus
           id='addressInput'
           type='text'
           placeholder='Address'
@@ -69,7 +70,6 @@ export default function AddForm(props) {
         />
         <input
           onChange={(e) => setHomeType(e.target.value)}
-          autoFocus
           id='typeInput'
           type='text'
           placeholder='Home Type'
@@ -77,7 +77,6 @@ export default function AddForm(props) {
         />
         <input
           onChange={(e) => setSaleType(e.target.value)}
-          autoFocus
           id='saleInput'
           type='text'
           placeholder='Sale Type'
@@ -85,7 +84,6 @@ export default function AddForm(props) {
         />
         <input
           onChange={(e) => setBedrooms(e.target.value)}
-          autoFocus
           id='bedroomsInput'
           type='number'
           placeholder='Bedrooms'
@@ -93,7 +91,6 @@ export default function AddForm(props) {
         />
         <input
           onChange={(e) => setBathrooms(e.target.value)}
-          autoFocus
           id='bathroomsInput'
           type='number'
           placeholder='Bathrooms'
@@ -101,7 +98,6 @@ export default function AddForm(props) {
         />
         <input
           onChange={(e) => setSquareFootage(e.target.value)}
-          autoFocus
           id='priceInput'
           type='number'
           placeholder='Square Footage'
@@ -109,7 +105,6 @@ export default function AddForm(props) {
         />
         <input
           onChange={(e) => setImage(e.target.value)}
-          autoFocus
           id='imageInput'
           type='text'
           placeholder='Image URL'

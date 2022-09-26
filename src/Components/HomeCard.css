@@ -1,14 +1,31 @@
 .home-image{
-    width: 300px;
+    width: 100%px;
     height: 150px;
+    border-radius: 5px 5px 0 0;
+}
+
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        border-radius: 5px 5px 5px 5px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-container{
     display: flex;
     flex-direction: column;
-    border: 5px solid black;
+    /* border: 5px solid black; */
     padding: 15px;
     margin: 25px;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    width: 50%;
+}
+
+.home-info{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }

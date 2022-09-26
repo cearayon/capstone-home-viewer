@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './HomeCard.css';
 import ModalUpdate from './ModalUpdate';
 import ModalDelete from './ModalDelete';
+import IconButton from '@mui/material/Button';
+import DeleteIcon from '@mui/material/Button';
+import Button from '@mui/material/Button';
 
 export default function HomeCard(props) {
   const [showModal, setShowModal] = useState(false);
@@ -16,7 +19,6 @@ export default function HomeCard(props) {
   // destructure here
   const { deleteHome, getHomes } = props;
   const {
-    id,
     home_address,
     home_type,
     home_price,
@@ -30,9 +32,12 @@ export default function HomeCard(props) {
   } = props.home;
 
   return (
-    <div className='card-container'>
-      <span>
-        <img className='home-image' src={image} alt='' />
+    <div className='card'>
+      <div className='card-container'>
+        <Button variant='contained'>Hello</Button>
+        <IconButton aria-label='delete'>
+          <DeleteIcon />
+        </IconButton>
         <button onClick={openModalDelete}>DELETE v2</button>
         {showModalDelete ? (
           <ModalDelete
@@ -44,7 +49,7 @@ export default function HomeCard(props) {
             deleteHome={deleteHome}
           />
         ) : null}
-        <button onClick={() => deleteHome(id)}> DELETE </button>
+
         <button onClick={openModal}>UPDATE</button>
         {showModal ? (
           <ModalUpdate
@@ -55,15 +60,22 @@ export default function HomeCard(props) {
             openModal={openModal}
           />
         ) : null}
-      </span>
-      <h2>${home_price}</h2>
-      <span>
-        {bedrooms} bd | {bathrooms} ba | {square_footage} sqft - {home_type}{' '}
-        {sale_type}
-      </span>
-      <p>{home_address}</p>
-      <p>Posted at: {created_at}</p>
-      <p>Last updated: {updated_at}</p>
+        <span>
+          <img className='home-image' src={image} alt='' />
+        </span>
+        <strong>
+          <h2>${home_price}</h2>
+        </strong>
+        <div className='home-info'>
+          <span>
+            {bedrooms} bd | {bathrooms} ba | {square_footage} sqft - {home_type}{' '}
+            {sale_type}
+          </span>
+          <p>{home_address}</p>
+          <p>Posted at: {created_at}</p>
+          <p>Last updated: {updated_at}</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,17 +1,14 @@
+const bcrypt = require('bryptjs');
 const Homes = require('./model/Homes');
 const Users = require('./model/Users');
-const database = require('./database');
-const bcrypt = require('bryptjs');
 
 module.exports = {
   getHomes: (req, res) => {
     console.log('Hit');
-    database
-      .query('SELECT * FROM public.homes ORDER BY id ASC;')
-      .then((dbRes) => {
-        console.log(dbRes[0]);
-        res.status(200).send(dbRes[0]);
-      });
+    return Homes.findAll().then((dbRes) => {
+      console.log(dbRes[0]);
+      res.sendStatus(200).send(dbRes[0]);
+    });
   },
 
   getHomeById: (req, res) => {
@@ -28,50 +25,7 @@ module.exports = {
     }
   },
   createHome: (req, res) => {
-    // const d = new Date();
-    // const createdAt = d.toISOString(d.getFullYear() + '-' + d.getDate());
-    // const updatedAt = d.toISOString(d.getFullYear() + '-' + d.getDate());
-
-    const {
-      home_address,
-      home_type,
-      home_price,
-      sale_type,
-      bedrooms,
-      bathrooms,
-      square_footage,
-      image,
-    } = req.body;
-
-    // database
-    //   .query(
-    //     `INSERT INTO public.homes (home_address, home_type, home_price, sale_type, bedrooms, bathrooms, square_footage, image, created_at, updated_at) VALUES ('${home_address}','${home_type}','${home_price}','${sale_type}','${bedrooms}','${bathrooms}','${square_footage}','${image}','${createdAt}', '${updatedAt}') RETURNING *`,
-    //     [
-    //       home_address,
-    //       home_type,
-    //       home_price,
-    //       sale_type,
-    //       bedrooms,
-    //       bathrooms,
-    //       square_footage,
-    //       image,
-    //     ],
-    //     (error, result) => {
-    //       if (error) {
-    //         throw error;
-    //       }
-    //     }
-    //   )
-    Homes.create({
-      home_address,
-      home_type,
-      home_price,
-      sale_type,
-      bedrooms,
-      bathrooms,
-      square_footage,
-      image,
-    })
+    Homes.create(req.body)
       .then((dbRes) => {
         console.log(dbRes);
         res.status(201).send(dbRes);
@@ -84,40 +38,15 @@ module.exports = {
   updateHome: (req, res) => {
     const id = req.params.id;
 
-    const {
-      home_address,
-      home_type,
-      home_price,
-      sale_type,
-      bedrooms,
-      bathrooms,
-      square_footage,
-    } = req.body;
-
-    // database
-    //   .query(
-    //     `UPDATE homes SET home_address = '${home_address}', home_type = '${home_type}', home_price = ${home_price}, sale_type = '${sale_type}', bedrooms = ${bedrooms},bathrooms = ${bathrooms}, square_footage = ${square_footage} WHERE id = ${id}`
-    //   )
     console.log('id = ' + id + 'body, ', req.body);
 
-    Homes.update(
-      {
-        home_address,
-        home_type,
-        home_price,
-        sale_type,
-        bedrooms,
-        bathrooms,
-        square_footage,
+    Homes.update(req.body, {
+      where: {
+        id: id,
       },
-      {
-        where: {
-          id: id,
-        },
-      }
-    )
-      .then((dbRes) => {
-        res.sendStatus(200).send(dbRes[0]);
+    })
+      .then(([dbRes]) => {
+        res.sendStatus(200).json(dbRes);
       })
       .catch((err) => console.log(err));
   },
@@ -134,13 +63,6 @@ module.exports = {
         res.sendStatus(200).send(dbRes);
       })
       .catch((err) => console.log(err));
-
-    // database
-    //   .query(`DELETE FROM public.homes WHERE id = ${id} RETURNING *;`)
-    //   .then((dbRes) => {
-    //     res.status(200).send(dbRes[0]);
-    //   })
-    //   .catch((err) => console.log(err));
   },
 
   auth: async (req, res) => {
@@ -154,7 +76,14 @@ module.exports = {
 
     if (user) {
       console.log('its a login');
-    } else if (!user) {
+      const authenticated = bcrypt.compareSync(password, user.password);
+      if (authenticated) {
+        const userInfo = { email: user.email, id: user.id };
+        req.session.user = userInfo.sendStatus(200).send(userInfo);
+      } else {
+        res.sendStatus(401).send('Wrong password!');
+      }
+    } else if (!user && email) {
       console.log('its a register');
 
       const salt = bcrypt.genSaltSync(5); //generates random characters, assign to var
@@ -162,8 +91,28 @@ module.exports = {
       console.log(salt, passHash);
 
       const [[newUser]] = await Users.query(
-        `INSERT INTO users (email, password) VALUES ('${email}', '${password}')`
+        `INSERT INTO users (email, password) VALUES ('${email}', '${password}', '${passHash}')
+        RETURNING id, email;`
       );
+    } else {
+      res
+        .sendStatus(500)
+        .send('Please use the register page to create an account.');
     }
+  },
+  deleteUser: async (req, res) => {
+    const id = req.params;
+
+    await Users.query(`
+    DELETE FROM usedrs WHERE id='${id}'`);
+
+    res.sendStatus(200).send('User deleted successfully.');
+  },
+
+  checkUser: (req, res) => {
+    if (req.session.user) {
+      res.sendStatus(200).send(req.session.user);
+    }
+    res.sendStatus(200);
   },
 };

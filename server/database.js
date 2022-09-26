@@ -1,6 +1,9 @@
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-module.exports = new Sequelize('home_viewer', 'postgres', 'pgmankind', {
+const { DATABASE, USER, PASSWORD } = process.env;
+
+module.exports = new Sequelize(DATABASE, USER, PASSWORD, {
   host: 'localhost',
   dialect: 'postgres',
   operatorAliases: false,
