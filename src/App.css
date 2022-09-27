@@ -134,26 +134,24 @@ table {
         height: 45px;
         margin: 10px;
         border: none;
-        background-color: cornflowerblue;
+        background-color: #333;
         color: white;
         border-radius: 8px;
         font-size: 20px;
         cursor: pointer;
+        align-items: center;
+}
+.addToggerContainer{
+    display:flex;
+    
 }
 
-@font-face {
-    src: url(./fonts/RextonRegular.otf);
-    font-family: RextonRegular;
-}
+.home-container{
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+    gap: 2vw;
 
-@font-face {
-    src: url(./fonts/RextonBold.otf);
-    font-family: RextonBold;
-}
-
-@font-face {
-    src: url(./fonts/RextonLight.otf);
-    font-family: RextonLight;
 }
 
 *{

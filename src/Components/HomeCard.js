@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import './HomeCard.css';
 import ModalUpdate from './ModalUpdate';
 import ModalDelete from './ModalDelete';
-import IconButton from '@mui/material/Button';
-import DeleteIcon from '@mui/material/Button';
-import Button from '@mui/material/Button';
+
+import { AiFillEdit, AiFillHeart, AiFillDelete } from 'react-icons/ai';
 
 export default function HomeCard(props) {
   const [showModal, setShowModal] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
+  const [like, setLike] = useState(false);
+
+  const handleToggle = () => {
+    setLike(!like);
+  };
 
   function openModal() {
     setShowModal(!showModal);
@@ -27,42 +31,52 @@ export default function HomeCard(props) {
     bathrooms,
     square_footage,
     image,
-    created_at,
-    updated_at,
+    createdAt,
+    updatedAt,
   } = props.home;
 
   return (
     <div className='card'>
       <div className='card-container'>
-        <Button variant='contained'>Hello</Button>
-        <IconButton aria-label='delete'>
-          <DeleteIcon />
-        </IconButton>
-        <button onClick={openModalDelete}>DELETE v2</button>
-        {showModalDelete ? (
-          <ModalDelete
-            home={props.home}
-            getHomes={getHomes}
-            showModal={showModal}
-            setShowModalDelete={setShowModalDelete}
-            openModalDelete={openModalDelete}
-            deleteHome={deleteHome}
-          />
-        ) : null}
-
-        <button onClick={openModal}>UPDATE</button>
-        {showModal ? (
-          <ModalUpdate
-            home={props.home}
-            getHomes={getHomes}
-            showModal={showModal}
-            setShowModal={setShowModal}
-            openModal={openModal}
-          />
-        ) : null}
         <span>
-          <img className='home-image' src={image} alt='' />
+          <AiFillHeart
+            className={like ? 'like' : null}
+            type='checkbox'
+            size='25px'
+            // className='heart'
+            onClick={handleToggle}
+          />
+
+          <AiFillEdit className='update-icon' size='25px' onClick={openModal} />
+
+          {showModal ? (
+            <ModalUpdate
+              home={props.home}
+              getHomes={getHomes}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              openModal={openModal}
+            />
+          ) : null}
+          <AiFillDelete
+            className='delete-icon'
+            size='25px'
+            onClick={openModalDelete}
+          />
+          {showModalDelete ? (
+            <ModalDelete
+              home={props.home}
+              getHomes={getHomes}
+              showModal={showModal}
+              setShowModalDelete={setShowModalDelete}
+              openModalDelete={openModalDelete}
+              deleteHome={deleteHome}
+            />
+          ) : null}
         </span>
+
+        <img className='home-image' src={image} alt='' />
+
         <strong>
           <h2>${home_price}</h2>
         </strong>
@@ -72,8 +86,8 @@ export default function HomeCard(props) {
             {sale_type}
           </span>
           <p>{home_address}</p>
-          <p>Posted at: {created_at}</p>
-          <p>Last updated: {updated_at}</p>
+          <p>Posted at: {createdAt}</p>
+          <p>Last updated: {updatedAt}</p>
         </div>
       </div>
     </div>

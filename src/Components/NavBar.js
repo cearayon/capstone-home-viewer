@@ -6,15 +6,15 @@ export default function NavBar() {
   return (
     <>
       <nav className='nav'>
-        <Link to='/' className='site-title'>
+        <Link to='/home' className='site-title'>
           Home Viewer
         </Link>
         <ul>
           <li>
-            <CustomLink to='/AddHome'>Add a Home</CustomLink>
+            <CustomLink to='/Contact'>Contact</CustomLink>
           </li>
           <li>
-            <CustomLink to='/Contact'>Contact</CustomLink>
+            <CustomLink to='/About'>About</CustomLink>
           </li>
         </ul>
       </nav>

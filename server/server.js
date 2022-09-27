@@ -1,25 +1,26 @@
 //boilerplate for server setup//
 const express = require('express');
 const cors = require('cors');
-// const session = require('express-session');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 require('dotenv').config();
+const { SESSION_SECRET } = process.env;
 app.use(express.json());
 app.use(cors());
 //end boilerplate for server
 
-// app.use(
-//   session({
-//     resave: false,
-//     saveUninitialized: true,
-//     secret: SESSION_SECRET,
-//     cookie: {
-//       maxAge: 1000 * 60 * 60 * 8,
-//     },
-//   })
-// );
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: SESSION_SECRET,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 8,
+    },
+  })
+);
 
 const {
   getHomes,
@@ -53,9 +54,9 @@ app.post('/homes', createHome);
 app.put('/homes/:id', updateHome);
 app.delete('/homes/:id', deleteHome);
 
-app.post('/user', auth);
-app.get('/user', checkUser);
-app.delete('/user/:id', deleteUser);
+app.post('/users', auth);
+app.get('/users', checkUser);
+app.delete('/users/:id', deleteUser);
 
 // app.get('/api', (req, res) => {
 //   res.json({ message: 'Hello' });

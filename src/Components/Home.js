@@ -2,10 +2,9 @@ import '../App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import HomeCard from './HomeCard';
-import Footer from './Footer';
 import NavBar from './NavBar';
 import ModalAdd from './ModalAdd';
-import Button from '@mui/material/Button';
+import Spinner from './Spinner';
 
 export default function Home() {
   const [homesList, setHomesList] = useState();
@@ -35,24 +34,24 @@ export default function Home() {
       .catch((err) => console.error(err));
   };
 
-  let mappedHomesList = homesList
-    ? homesList.map((home) => (
-        <HomeCard home={home} deleteHome={deleteHome} getHomes={getHomes} />
-      ))
-    : 'No homes currently listed. Please check back later!'; //turnary condition need so map doesn't trigger on first render.
+  let mappedHomesList = homesList ? (
+    homesList.map((home) => (
+      <HomeCard home={home} deleteHome={deleteHome} getHomes={getHomes} />
+    ))
+  ) : (
+    <Spinner />
+  ); //turnary condition need so map doesn't trigger on first render.
 
   return (
     <>
       <div className='App'>
         <NavBar />
-        <div className='container'></div>
-        <Button variant='contained' onClick={() => openModal()}>
-          Add a Home!
-        </Button>
+        <div className='addToggerContainer'>
+          <button className='addToggler' onClick={() => openModal()}>
+            Add a Home!
+          </button>
+        </div>
 
-        {/* <button className='addToggler' onClick={() => openModal()}>
-          Add a Home!
-        </button> */}
         {showModal ? (
           <ModalAdd
             getHomes={getHomes}
@@ -61,8 +60,7 @@ export default function Home() {
             openModal={openModal}
           />
         ) : null}
-        <div>{mappedHomesList}</div>
-        <Footer />
+        <div className='home-container'>{mappedHomesList}</div>
       </div>
     </>
   );
