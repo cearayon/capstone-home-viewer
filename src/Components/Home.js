@@ -60,6 +60,15 @@ export default function Home() {
             openModal={openModal}
           />
         ) : null}
+        <div className='home-count'>
+          <h1>
+            {homesList
+              ? 'There are ' +
+                Object.keys(homesList).length +
+                ' homes available'
+              : null}
+          </h1>
+        </div>
         <div className='home-container'>{mappedHomesList}</div>
       </div>
     </>

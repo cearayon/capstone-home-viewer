@@ -1,0 +1,23 @@
+.update-form{
+    display:flex;
+    flex-direction: column;
+}
+
+.update-label{
+    font-family:inherit;
+    font-size: 15px;
+    font-weight:600;
+    margin-right: 25px;
+    
+
+}
+
+.update-form span {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.update-input {
+    margin-bottom: 10px;
+}

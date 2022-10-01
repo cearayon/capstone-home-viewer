@@ -19,7 +19,11 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding-bottom: 10px
+}
+
+.modalContainer *{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 .modalContainer .title {
@@ -30,7 +34,10 @@
 
 .titleCloseBtn {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+    background-color:transparent;
+    align-items: flex-end;
+    width: 100%;
 }
 
 .titleCloseBtn button {
@@ -38,6 +45,8 @@
     border: none;
     font-size: 25px;
     cursor: pointer;
+    color: black;
+    width: 20%;
 }
 
 .modalContainer .body {
@@ -62,7 +71,7 @@
     height: 45px;
     margin: 10px;
     border: none;
-    background-color: green;
+    background-color: #35cc61;
     color: white;
     border-radius: 8px;
     font-size: 20px;
@@ -73,4 +82,9 @@
 
 #cancelBtn {
     background-color: red;
+}
+
+.title h1{
+    padding-bottom: 20px;
+    font-weight:600;
 }

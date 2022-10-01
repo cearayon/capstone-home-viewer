@@ -3,6 +3,10 @@
     flex-direction: column;
 }
 
+.form-container input{
+    margin-bottom: 10px;
+}
+
 .addSubmit{
     width: 150px;
         height: 45px;

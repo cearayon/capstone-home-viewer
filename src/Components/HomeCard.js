@@ -40,10 +40,9 @@ export default function HomeCard(props) {
       <div className='card-container'>
         <span>
           <AiFillHeart
-            className={like ? 'like' : null}
+            className={like ? 'like' : 'unlike'}
             type='checkbox'
             size='25px'
-            // className='heart'
             onClick={handleToggle}
           />
 
@@ -77,9 +76,10 @@ export default function HomeCard(props) {
 
         <img className='home-image' src={image} alt='' />
 
-        <strong>
-          <h2>${home_price}</h2>
-        </strong>
+        <div className='home-price'>
+          <h1>${home_price}</h1>
+        </div>
+
         <div className='home-info'>
           <span>
             {bedrooms} bd | {bathrooms} ba | {square_footage} sqft - {home_type}{' '}

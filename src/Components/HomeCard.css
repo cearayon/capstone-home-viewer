@@ -11,6 +11,8 @@
         width: 48vw;
         display: flex;
         justify-content: center;
+        padding-left: 25px;
+        
 }
 
 .card:hover {
@@ -29,6 +31,12 @@
     width: 50%;
 }
 
+.home-price h1 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:x-large;
+    font-weight:600;
+}
+
 .home-info p{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 400;
@@ -37,23 +45,33 @@
 
 .heart:checked{
     color: red;
+    cursor: pointer;
 }
 /* .heart:hover{
     color: red;
 } */
 
 .update-icon:hover{
-    color:#fcca03
+    color:#fcca03;
+    cursor: pointer;
 }
 
 .delete-icon:hover{
     color:red;
+    cursor:pointer;
 }
 
 .like{
     color:red;
+    cursor: pointer;
 }
+
 
 .unlike{
     color:black;
+    cursor: pointer;
+}
+.unlike:hover{
+    color:red;
+    
 }

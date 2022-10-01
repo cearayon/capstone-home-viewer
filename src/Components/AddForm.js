@@ -32,9 +32,7 @@ export default function AddForm(props) {
   return (
     <>
       <form
-        id='addForm'
         className='form-container'
-        class='addForm'
         onSubmit={(e) => {
           e.preventDefault();
           createHome({
